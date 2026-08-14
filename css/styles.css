@@ -1,0 +1,283 @@
+/* ==========================================================================
+   So ILL Veggies — built on Milligram, restyled in the bold "Modernist"
+   editorial direction: Archivo type, sharp corners, numbered markers,
+   uppercase eyebrow labels, a single green accent on near-black/light-gray.
+   Milligram (loaded via <link> in each page's <head>, before this file)
+   supplies the grid, base type scale, buttons, forms and tables. Everything
+   below layers this look on top of it and fills in what Milligram
+   intentionally leaves unstyled (site header/nav, footer, cards, badges).
+   ========================================================================== */
+
+:root {
+  --color-bg:        #f3f2f2;
+  --color-surface:   #eae9e9;
+  --color-text:      #201e1d;
+  --color-text-soft: color-mix(in srgb, #201e1d 70%, transparent);
+  --color-text-mute: color-mix(in srgb, #201e1d 55%, transparent);
+  --color-divider:   color-mix(in srgb, #201e1d 22%, transparent);
+
+  --color-accent:      #4b8b23;
+  --color-accent-dark: #336114;
+  --color-accent-100:  #f1f7e9;
+  --color-accent-800:  #24450f;
+
+  --font-heading: 'Archivo', system-ui, sans-serif;
+  --font-heading-weight: 800;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-tag: 'Archivo', system-ui, sans-serif;
+
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-10: 56px; --space-12: 84px;
+
+  --radius: 0;
+}
+
+/* ---- Base / Milligram overrides -------------------------------------- */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  color: var(--color-text);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); letter-spacing: -0.018em; }
+h3 { font-size: 1.5rem; }
+h6 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+a { color: var(--color-accent); text-underline-offset: 3px; }
+a:hover, a:focus { color: var(--color-accent-dark); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+hr { border: 0; border-top: 2px solid var(--color-divider); }
+code { background: var(--color-surface); color: var(--color-text); border-radius: 0; }
+blockquote { border-left: 3px solid var(--color-accent); color: var(--color-text-soft); }
+
+.button, button, input[type='submit'], input[type='reset'], input[type='button'] {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+  letter-spacing: 0.01em;
+}
+.button:hover, button:hover,
+input[type='submit']:hover, input[type='reset']:hover, input[type='button']:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+.button.button-ghost, button.button-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-accent);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+.button.button-ghost:hover, button.button-ghost:hover {
+  background: var(--color-accent-100);
+  color: var(--color-accent-dark);
+}
+.button.button-outline, button.button-outline {
+  background: transparent;
+  border-color: var(--color-divider);
+  color: var(--color-text);
+}
+.button.button-outline:hover, button.button-outline:hover {
+  background: color-mix(in srgb, var(--color-text) 6%, transparent);
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+.button.button-clear, button.button-clear { color: var(--color-bg); }
+fieldset, input, select, textarea { border-color: var(--color-divider); border-radius: var(--radius); }
+input:focus, select:focus, textarea:focus { border-color: var(--color-accent); }
+table th, table td { border-bottom-color: var(--color-divider); }
+
+/* ---- Skip link ---------------------------------------------------------*/
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--color-text); color: var(--color-bg); padding: 0.75em 1.2em;
+  z-index: 200; font-family: var(--font-heading); font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+
+/* ---- Eyebrow labels (formerly "badge") -------------------------------- */
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  margin-bottom: var(--space-4);
+}
+.eyebrow.on-dark, .eyebrow.on-accent { color: var(--color-accent-100); }
+
+/* ---- Index numbers (numbered markers) ---------------------------------*/
+.index-num {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  color: var(--color-accent);
+  font-feature-settings: 'tnum' 1;
+  margin-bottom: var(--space-2);
+}
+
+/* ---- Site header / nav (Milligram has no nav component) -------------- */
+.site-header {
+  border-bottom: 2px solid var(--color-divider);
+  padding: var(--space-3) 0;
+}
+.site-header .row { align-items: center; justify-content: space-between; margin-left: 0; }
+.brand {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 1.15rem;
+  color: var(--color-text);
+  text-decoration: none;
+  margin-right: auto;
+}
+.brand:hover { color: var(--color-accent); }
+.nav-toggle { display: none; height: auto; padding: 0.5em 0.9em; font-size: 1rem; }
+.main-nav ul {
+  list-style: none; display: flex; gap: var(--space-6);
+  margin: 0; padding: 0; flex-wrap: wrap; align-items: center;
+}
+.main-nav a {
+  color: var(--color-text); text-decoration: none; font-size: 0.95rem;
+  white-space: nowrap;
+}
+.main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--color-accent); }
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-block; }
+  .main-nav { display: none; width: 100%; }
+  .main-nav.is-open { display: block; }
+  .main-nav ul { flex-direction: column; align-items: flex-start; gap: 0; padding: var(--space-3) 0 0; }
+  .main-nav a { display: block; padding: 0.6em 0; border-bottom: 1px solid var(--color-divider); width: 100%; }
+  .site-header .row { flex-wrap: wrap; }
+}
+
+/* ---- Hero ---------------------------------------------------------------*/
+.hero { padding: var(--space-12) 0 var(--space-10); }
+.hero .lede { font-size: 1.1rem; line-height: 1.7; max-width: 56ch; color: var(--color-text); margin-top: var(--space-8); }
+.hero .cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
+
+/* Numbered pipeline strip: Seed / Sprout / Harvest / Distribute */
+.pipeline-strip {
+  list-style: none; margin: 0; padding: var(--space-6) 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-6); border-top: 2px solid var(--color-divider);
+}
+.pipeline-strip li { display: flex; flex-direction: column; }
+.pipeline-strip .index-num { margin-bottom: var(--space-3); }
+.pipeline-strip .label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-soft); }
+
+/* ---- Project / service cards ------------------------------------------*/
+.project-grid { border-top: 2px solid var(--color-divider); margin-top: var(--space-10); }
+.project-card { padding: var(--space-6) 0 var(--space-8); }
+.card-media {
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface);
+  color: var(--color-text-mute);
+  font-family: var(--font-tag); font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: var(--space-3);
+  filter: grayscale(1) contrast(1.08);
+  margin-bottom: var(--space-6);
+}
+.project-card h3 { margin: var(--space-2) 0 0; font-size: 1.4rem; }
+.project-card p { color: var(--color-text-soft); margin-top: var(--space-3); }
+.project-card .read-more {
+  display: inline-block; font-size: 0.85rem; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-top: var(--space-4);
+}
+
+.alt-bg { background: var(--color-surface); }
+
+/* ---- Then & Now / team grids -------------------------------------------*/
+.then-now figure { margin: 0; }
+.then-now .card-media { aspect-ratio: 16/10; }
+.then-now figcaption {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+  margin-top: var(--space-2); color: var(--color-text-mute);
+}
+
+.person-card { margin-bottom: var(--space-8); }
+.person-avatar {
+  width: 84px; height: 84px; border-radius: 50%; margin-bottom: var(--space-3);
+  background: var(--color-text); color: var(--color-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 1.4rem;
+}
+.person-role { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-mute); }
+
+.logo-row { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; }
+.logo-placeholder {
+  width: 140px; height: 70px; border: 1.5px dashed var(--color-divider);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; text-align: center; color: var(--color-text-mute); padding: var(--space-2);
+}
+
+/* ---- Get-involved asymmetric section -----------------------------------*/
+.split-cta { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-6) var(--space-10); align-items: start; }
+@media (max-width: 780px) { .split-cta { grid-template-columns: 1fr; } }
+.split-cta p { font-size: 1.05rem; color: var(--color-text-soft); max-width: 52ch; }
+
+/* ---- Full-bleed CTA banner ---------------------------------------------*/
+.cta-banner { background: var(--color-accent); color: var(--color-bg); padding: var(--space-12) 0; }
+.cta-banner h2 { color: var(--color-bg); font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+.cta-banner .button-ghost { color: var(--color-bg); border: 1px solid var(--color-bg); }
+.cta-banner .button-ghost:hover { background: var(--color-bg); color: var(--color-accent-dark); }
+
+/* ---- Media embeds -------------------------------------------------------*/
+.media-item { margin-bottom: var(--space-10); }
+.video-embed { position: relative; aspect-ratio: 16/9; background: var(--color-text); }
+.video-embed iframe { width: 100%; height: 100%; border: 0; }
+
+/* ---- Gallery -------------------------------------------------------------*/
+.gallery-filters { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-8); }
+.filter-btn {
+  height: auto; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase;
+  background: transparent; border: 1.5px solid var(--color-divider); border-radius: 0;
+  color: var(--color-text); padding: 0.5em 1em; cursor: pointer;
+}
+.filter-btn[aria-pressed="true"] { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg); }
+.gallery-grid figure { margin: 0 0 var(--space-6); }
+.gallery-grid .card-media { aspect-ratio: 4/3; margin-bottom: var(--space-2); }
+.gallery-empty { font-size: 0.9rem; color: var(--color-text-mute); }
+
+/* ---- Forms / contact ------------------------------------------------------*/
+.form-note { background: var(--color-surface); padding: var(--space-6); }
+.contact-list { list-style: none; padding: 0; margin: 0; }
+.contact-list li { margin-bottom: var(--space-3); }
+.contact-list a { font-family: var(--font-heading); font-weight: 700; }
+
+/* ---- Footer ---------------------------------------------------------------*/
+.site-footer { padding: var(--space-10) 0 var(--space-6); }
+.site-footer h4 {
+  font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: var(--space-3); font-weight: var(--font-heading-weight);
+}
+.site-footer a { color: var(--color-text); }
+.site-footer a:hover { color: var(--color-accent); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.footer-bottom {
+  margin-top: var(--space-8); padding-top: var(--space-4);
+  border-top: 2px solid var(--color-divider);
+  font-size: 0.82rem; color: var(--color-text-mute);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2);
+}
+
+/* ---- Breadcrumb -----------------------------------------------------------*/
+.breadcrumb { font-size: 0.82rem; color: var(--color-text-mute); margin-bottom: var(--space-4); }
+.breadcrumb a { color: var(--color-text-soft); }

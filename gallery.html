@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — So ILL Veggies</title>
+  <meta name="description" content="Photos from the So ILL Veggies indoor grow, outdoor garden, hydroponics, and community events.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/milligram@1.4.1/dist/milligram.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="row">
+        <a class="brand" href="index.html">So ILL Veggies</a>
+        <button class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
+        <nav class="main-nav" id="main-nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="news-media.html">Media &amp; News</a></li>
+            <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a class="button" href="contact.html" style="text-decoration:none;">Book a service</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" style="padding-bottom: var(--space-6);">
+      <div class="container">
+        <span class="eyebrow">Gallery</span>
+        <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">The archive</h1>
+        <p class="lede" style="max-width: 62ch;">Photos from indoor grow, outdoor garden, hydroponics, and community events. This page loads from <code>data/gallery.json</code> — see the note below for connecting a live Google Drive album.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
+          <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="filter-btn" data-filter="indoor" aria-pressed="false">Indoor grow</button>
+          <button type="button" class="filter-btn" data-filter="outdoor" aria-pressed="false">Outdoor garden</button>
+          <button type="button" class="filter-btn" data-filter="events" aria-pressed="false">Events</button>
+          <button type="button" class="filter-btn" data-filter="hydroponics" aria-pressed="false">Hydroponics</button>
+        </div>
+
+        <p class="gallery-empty" data-gallery-empty hidden>No photos in this category yet.</p>
+        <div class="row gallery-grid" data-gallery-grid aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="alt-bg">
+      <div class="container">
+        <div class="form-note">
+          <h3 style="font-size: 1.2rem;">Connecting a live Google Drive album</h3>
+          <p style="color: var(--color-text-soft); margin-top: var(--space-3);">This gallery currently reads placeholder entries from <code>data/gallery.json</code>. To pull real photos from a public Google Drive folder, publish the folder, generate a JSON feed (for example with a small Google Apps Script or a service like a public Drive-to-JSON endpoint), and point the <code>fetch()</code> call in <code>js/main.js</code> at that URL instead — keeping the same <code>title</code> / <code>category</code> / <code>alt</code> shape.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="column column-33">
+          <h4>So ILL Veggies</h4>
+          <p>Growing food, knowledge, and community across Southern Illinois.</p>
+        </div>
+        <div class="column column-33">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="column column-33">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://www.facebook.com/profile.php?id=61557370321794" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="contact.html">Instagram (coming soon)</a></li>
+            <li><a href="contact.html">Contact form</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> So ILL Veggies. All rights reserved.</span>
+        <span>Built with HTML, CSS &amp; JS — hosted on GitHub Pages.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
