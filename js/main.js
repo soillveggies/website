@@ -3,8 +3,8 @@
    Vanilla JS only (no build step / no server), per project requirements.
    ========================================================================== */
 
+// Dynamically Generate Nav Links from Google Sheets
 async function constructNavMenu(navData) {
-    // Dynamically Generate Nav Links from Google Sheets
     const navList = [];
     navData.forEach(function(link) {
         let navButton = `<li><a href="${link.href}">${link.label}</a></li>`;
@@ -13,6 +13,7 @@ async function constructNavMenu(navData) {
     return navList;
 }
 
+// Generate Nav & Enable Mobile Toggle
 async function initNavMenu(siteData) {
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.querySelector(".main-nav");
@@ -38,7 +39,7 @@ async function initNavMenu(siteData) {
     });
 }
 
-/* ---- Footer year --------------------------------------------------- */
+// Auto Update Footer Year
 function initFooterYear() {
     var el = document.querySelector("[data-year]");
     if (el) el.textContent = new Date().getFullYear();
