@@ -3,14 +3,24 @@
    Vanilla JS only (no build step / no server), per project requirements.
    ========================================================================== */
 
-
-
-/* ---- Mobile nav toggle ------------------------------------------- */
-function initNavToggle() {
+async function initNavMenu(siteData) {
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.querySelector(".main-nav");
     if (!toggle || !nav) return;
 
+    // Dynamically Generate Nav Links from Google Sheets
+    const navData = siteData.website_navigation;
+    const navList = [];
+    navData.forEach(function(link) {
+        let navButton = `<li><a href="${navData.href}">${navData.label}</a></li>`;
+        navList.push(navButton);
+    })
+    nav.innerHTML = `<ul>${nav_list.join('\n')}</ul>`
+
+    // Implement CTA Button?
+    // <li><a class="button" href="contact.html" style="text-decoration:none;">Book a service</a></li>
+
+    // Toggle Mobile Menu
     toggle.addEventListener("click", function () {
         var isOpen = nav.classList.toggle("is-open");
         toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
@@ -54,7 +64,6 @@ async function loadGalleryData(siteData) {
         return siteData.website_gallery;
     }
 }
-
 
 async function renderGallery(items, activeFilter) {
     var grid = document.querySelector("[data-gallery-grid]");
@@ -141,7 +150,7 @@ async function getData() {
 window.onload = async () => {
     // Get Site Data
     let siteData = await getData();
-    initNavToggle();
+    initNavMenu(siteData);
     initFooterYear();
     initGallery(siteData);
 
