@@ -15,7 +15,7 @@ async function initNavMenu(siteData) {
         let navButton = `<li><a href="${navData.href}">${navData.label}</a></li>`;
         navList.push(navButton);
     })
-    nav.innerHTML = `<ul>${nav_list.join('\n')}</ul>`
+    nav.innerHTML = `<ul>${navList.join('\n')}</ul>`
 
     // Implement CTA Button?
     // <li><a class="button" href="contact.html" style="text-decoration:none;">Book a service</a></li>
