@@ -50,10 +50,8 @@ function loadGalleryData(siteData) {
     if (!siteData) {
         return localFallback();
     } else {
-        return siteData.website_gallery;
+        return Promise.resolve(siteData.website_gallery);
     }
-
-    return siteData.website_gallery;
 }
 
 
