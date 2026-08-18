@@ -39,7 +39,7 @@
       <div class="container">
         <span class="eyebrow">Gallery</span>
         <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">The archive</h1>
-        <p class="lede" style="max-width: 62ch;">Photos from indoor grow, outdoor garden, hydroponics, and community events. This page loads from <code>data/gallery.json</code> — see the note below for connecting a live Google Drive album.</p>
+        <p class="lede" style="max-width: 62ch;">Photos from indoor grows, outdoor gardens, hydroponics, and community events.</p>
       </div>
     </section>
 
@@ -55,15 +55,6 @@
 
         <p class="gallery-empty" data-gallery-empty hidden>No photos in this category yet.</p>
         <div class="row gallery-grid" data-gallery-grid aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="alt-bg">
-      <div class="container">
-        <div class="form-note">
-          <h3 style="font-size: 1.2rem;">Connecting the live Google Sheet feed</h3>
-          <p style="color: var(--color-text-soft); margin-top: var(--space-3);">This gallery reads from a Google Sheet published as JSON through a small Apps Script (see <code>gallery-apps-script.gs</code> in the project root). Add rows to the Sheet — <code>title</code>, <code>category</code>, <code>alt</code>, and an optional <code>imageUrl</code> — and they'll appear here automatically, no redeploy needed. If the feed URL in <code>js/main.js</code> is left blank or is unreachable, this page falls back to the placeholder entries in <code>data/gallery.json</code>.</p>
-        </div>
       </div>
     </section>
   </main>
