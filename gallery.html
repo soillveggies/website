@@ -61,8 +61,8 @@
     <section class="alt-bg">
       <div class="container">
         <div class="form-note">
-          <h3 style="font-size: 1.2rem;">Connecting a live Google Drive album</h3>
-          <p style="color: var(--color-text-soft); margin-top: var(--space-3);">This gallery currently reads placeholder entries from <code>data/gallery.json</code>. To pull real photos from a public Google Drive folder, publish the folder, generate a JSON feed (for example with a small Google Apps Script or a service like a public Drive-to-JSON endpoint), and point the <code>fetch()</code> call in <code>js/main.js</code> at that URL instead — keeping the same <code>title</code> / <code>category</code> / <code>alt</code> shape.</p>
+          <h3 style="font-size: 1.2rem;">Connecting the live Google Sheet feed</h3>
+          <p style="color: var(--color-text-soft); margin-top: var(--space-3);">This gallery reads from a Google Sheet published as JSON through a small Apps Script (see <code>gallery-apps-script.gs</code> in the project root). Add rows to the Sheet — <code>title</code>, <code>category</code>, <code>alt</code>, and an optional <code>imageUrl</code> — and they'll appear here automatically, no redeploy needed. If the feed URL in <code>js/main.js</code> is left blank or is unreachable, this page falls back to the placeholder entries in <code>data/gallery.json</code>.</p>
         </div>
       </div>
     </section>
