@@ -136,9 +136,6 @@ async function getData() {
 
 // Generate Elements on Page Load
 window.onload = async () => {
-    // Enable Strict Mode
-    "use strict";
-
     // Get Site Data
     let siteData = await getData();
     initNavToggle();
