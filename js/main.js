@@ -35,7 +35,7 @@ function initFooterYear() {
 /* ---- Gallery: load from the Apps Script feed (falls back to the
    local data/gallery.json placeholder if the feed URL is empty or
    unreachable) and filter by category ------------------------------- */
-function loadGalleryData(siteData) {
+async function loadGalleryData(siteData) {
     var localFallback = function () {
         return fetch("data/gallery.json")
             .then(function (res) {
@@ -50,12 +50,13 @@ function loadGalleryData(siteData) {
     if (!siteData) {
         return localFallback();
     } else {
-        return Promise.resolve(siteData.website_gallery);
+        console.log(siteData.website_gallery);
+        return siteData.website_gallery;
     }
 }
 
 
-function renderGallery(items, activeFilter) {
+async function renderGallery(items, activeFilter) {
     var grid = document.querySelector("[data-gallery-grid]");
     var empty = document.querySelector("[data-gallery-empty]");
     if (!grid) return;
@@ -96,25 +97,29 @@ function renderGallery(items, activeFilter) {
     });
 }
 
-function initGallery(siteData) {
+// Initilaize the Gallery only when on the Correct Page
+async function initGallery(siteData) {
     var grid = document.querySelector("[data-gallery-grid]");
-    if (!grid) return; // not on gallery page
+    if (grid) {
+        var filterButtons = document.querySelectorAll(".filter-btn");
+        var currentFilter = "all";
 
-    var filterButtons = document.querySelectorAll(".filter-btn");
-    var currentFilter = "all";
+        await loadGalleryData(siteData)
+            .then(function (res) {
+                renderGallery(res, currentFilter);
 
-    loadGalleryData(siteData).then(function (items) {
-        renderGallery(items, currentFilter);
-
-        filterButtons.forEach(function (btn) {
-            btn.addEventListener("click", function () {
-                filterButtons.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
-                btn.setAttribute("aria-pressed", "true");
-                currentFilter = btn.getAttribute("data-filter");
-                renderGallery(items, currentFilter);
+                filterButtons.forEach(function (btn) {
+                    btn.addEventListener("click", function () {
+                        filterButtons.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+                        btn.setAttribute("aria-pressed", "true");
+                        currentFilter = btn.getAttribute("data-filter");
+                        renderGallery(res, currentFilter);
+                    });
+                });
             });
-        });
-    });
+    } else {
+        return // not on gallery page
+    }
 }
 
 // Get Data from Google Drive Feed
