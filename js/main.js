@@ -6,6 +6,12 @@
 (function () {
   "use strict";
 
+  /* ---- Config -----------------------------------------------------------
+     Paste your deployed Google Apps Script Web App URL below (it ends in
+     /exec). Leave it as an empty string to fall back to the local
+     data/gallery.json placeholder file. */
+  var GALLERY_FEED_URL = "https://script.google.com/macros/s/AKfycbz-iHoxllIXcAyS_4pGWyNu99TCaj-Bi_Daoc6zsmDFTMJfUN4Z-XsBbFRMwAaJhUQ/exec";
+
   /* ---- Mobile nav toggle ------------------------------------------- */
   function initNavToggle() {
     var toggle = document.querySelector(".nav-toggle");
@@ -32,19 +38,33 @@
     if (el) el.textContent = new Date().getFullYear();
   }
 
-  /* ---- Gallery: load from data/gallery.json and filter by category --
-     NOTE: This reads a local JSON placeholder. To pull real images from a
-     public Google Drive folder, replace loadGalleryData() with a fetch to
-     your published Drive/Apps Script JSON endpoint that returns the same
-     shape: [{ "title": "", "category": "", "alt": "" }, ...] */
+  /* ---- Gallery: load from the Apps Script feed (falls back to the
+     local data/gallery.json placeholder if the feed URL is empty or
+     unreachable) and filter by category ------------------------------- */
   function loadGalleryData() {
-    return fetch("data/gallery.json")
+    var localFallback = function () {
+      return fetch("data/gallery.json")
+        .then(function (res) {
+          if (!res.ok) throw new Error("gallery.json not found");
+          return res.json();
+        })
+        .catch(function () {
+          return [];
+        });
+    };
+
+    if (!GALLERY_FEED_URL) {
+      return localFallback();
+    }
+
+    return fetch(GALLERY_FEED_URL)
       .then(function (res) {
-        if (!res.ok) throw new Error("gallery.json not found");
+        if (!res.ok) throw new Error("Gallery feed request failed");
         return res.json();
       })
-      .catch(function () {
-        return [];
+      .catch(function (err) {
+        console.warn("Gallery feed unavailable, using local fallback:", err);
+        return localFallback();
       });
   }
 
@@ -71,7 +91,15 @@
       var figure = document.createElement("figure");
       var media = document.createElement("div");
       media.className = "card-media";
-      media.textContent = item.alt || item.title || "Photo placeholder";
+      if (item.imageUrl) {
+        media.style.backgroundImage = "url('" + item.imageUrl + "')";
+        media.style.backgroundSize = "cover";
+        media.style.backgroundPosition = "center";
+        media.setAttribute("role", "img");
+        media.setAttribute("aria-label", item.alt || item.title || "");
+      } else {
+        media.textContent = item.alt || item.title || "Photo placeholder";
+      }
       var caption = document.createElement("figcaption");
       caption.textContent = item.title || "";
       figure.appendChild(media);
