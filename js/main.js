@@ -3,20 +3,23 @@
    Vanilla JS only (no build step / no server), per project requirements.
    ========================================================================== */
 
+async function constructNavMenu(navData) {
+    // Dynamically Generate Nav Links from Google Sheets
+    const navList = [];
+    navData.forEach(function(link) {
+        let navButton = `<li><a href="${link.href}">${link.label}</a></li>`;
+        navList.push(navButton);
+    })
+    return navList;
+}
+
 async function initNavMenu(siteData) {
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.querySelector(".main-nav");
     if (!toggle || !nav) return;
 
-    // Dynamically Generate Nav Links from Google Sheets
-    const navData = siteData.website_navigation;
-    const navList = [];
-    navData.forEach(function(link) {
-        let navButton = `<li><a href="${navData.href}">${navData.label}</a></li>`;
-        navList.push(navButton);
-    })
-    nav.innerHTML = `<ul>${navList.join('\n')}</ul>`
-
+    let navList = await constructNavMenu(siteData.website_navigation);
+    nav.innerHTML = `<ul>${navList.join('\n')}</ul>`;
     // Implement CTA Button?
     // <li><a class="button" href="contact.html" style="text-decoration:none;">Book a service</a></li>
 
