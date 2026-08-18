@@ -10,7 +10,7 @@
      Paste your deployed Google Apps Script Web App URL below (it ends in
      /exec). Leave it as an empty string to fall back to the local
      data/gallery.json placeholder file. */
-  var GALLERY_FEED_URL = "";
+  var GALLERY_FEED_URL = "https://script.google.com/macros/s/AKfycbz-iHoxllIXcAyS_4pGWyNu99TCaj-Bi_Daoc6zsmDFTMJfUN4Z-XsBbFRMwAaJhUQ/exec";
 
   /* ---- Mobile nav toggle ------------------------------------------- */
   function initNavToggle() {
