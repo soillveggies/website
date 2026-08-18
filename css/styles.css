@@ -192,7 +192,7 @@ table th, table td { border-bottom-color: var(--color-divider); }
   font-family: var(--font-tag); font-size: 0.75rem;
   display: flex; align-items: center; justify-content: center;
   text-align: center; padding: var(--space-3);
-  filter: grayscale(1) contrast(1.08);
+  filter: contrast(1.08);
   margin-bottom: var(--space-6);
 }
 .project-card h3 { margin: var(--space-2) 0 0; font-size: 1.4rem; }
