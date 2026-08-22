@@ -17,66 +17,17 @@
     <div class="container">
       <div class="row">
         <a class="brand" href="index.html">So ILL Veggies</a>
-        <button class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
+        <button type="button" class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
         <nav class="main-nav" id="main-nav" aria-label="Primary"></nav>
       </div>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" style="padding-bottom: var(--space-6);">
-      <div class="container">
-        <span class="eyebrow">Archive</span>
-        <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">Photo Gallery</h1>
-        <p class="lede" style="max-width: 62ch;">Photos from indoor grows, outdoor gardens, hydroponics, and community events.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
-          <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" class="filter-btn" data-filter="indoor" aria-pressed="false">Indoor grow</button>
-          <button type="button" class="filter-btn" data-filter="outdoor" aria-pressed="false">Outdoor garden</button>
-          <button type="button" class="filter-btn" data-filter="events" aria-pressed="false">Events</button>
-          <button type="button" class="filter-btn" data-filter="hydroponics" aria-pressed="false">Hydroponics</button>
-        </div>
-        <p class="gallery-empty" data-gallery-empty hidden>No photos in this category yet.</p>
-        <div class="row gallery-grid" data-gallery-grid aria-live="polite"></div>
-      </div>
-    </section>
+    <div id="gallery" dynamic-body></div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="row">
-        <div class="column column-33">
-          <h4>So ILL Veggies</h4>
-          <p>Growing food, knowledge, and community across Southern Illinois.</p>
-        </div>
-        <div class="column column-33">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-        </div>
-        <div class="column column-33">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="https://www.facebook.com/profile.php?id=61557370321794" target="_blank" rel="noopener">Facebook</a></li>
-            <li><a href="contact.html">Instagram (coming soon)</a></li>
-            <li><a href="contact.html">Contact form</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© <span data-year>2026</span> So ILL Veggies. All rights reserved.</span>
-        <span>Built with HTML, CSS &amp; JS — hosted on GitHub Pages.</span>
-      </div>
-    </div>
-  </footer>
+  <footer class="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>

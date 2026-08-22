@@ -17,105 +17,17 @@
     <div class="container">
       <div class="row">
         <a class="brand" href="index.html">So ILL Veggies</a>
-        <button class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
+        <button type="button" class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
         <nav class="main-nav" id="main-nav" aria-label="Primary"></nav>
       </div>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" style="padding-bottom: var(--space-6);">
-      <div class="container">
-        <span class="eyebrow">Services</span>
-        <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">Book So ILL Veggies</h1>
-        <p class="lede" style="max-width: 62ch;">Workshops, talks, consulting, and produce — pick what fits your school, event, or business.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="row project-grid">
-          <div class="column column-25">
-            <article class="project-card">
-              <div class="card-media">Workshop with hands-on planting</div>
-              <span class="index-num">01</span>
-              <h3 style="font-size: 1.2rem;">Educational Opportunities</h3>
-              <p>Hands-on workshops and training sessions for schools, youth groups, and community organizations covering growing basics, hydroponics, and more.</p>
-              <a class="read-more" href="contact.html">Request a workshop →</a>
-            </article>
-          </div>
-          <div class="column column-25">
-            <article class="project-card">
-              <div class="card-media">Speaker at community event</div>
-              <span class="index-num">02</span>
-              <h3 style="font-size: 1.2rem;">Speaking Engagements</h3>
-              <p>Talks on urban agriculture, food access, and community growing for conferences, classrooms, and civic groups.</p>
-              <a class="read-more" href="contact.html">Invite us to speak →</a>
-            </article>
-          </div>
-          <div class="column column-25">
-            <article class="project-card">
-              <div class="card-media">Consulting site visit</div>
-              <span class="index-num">03</span>
-              <h3 style="font-size: 1.2rem;">Consulting Opportunities</h3>
-              <p>Guidance for organizations planning their own indoor grow, garden, or hydroponic projects — from planning through first harvest.</p>
-              <a class="read-more" href="contact.html">Ask about consulting →</a>
-            </article>
-          </div>
-          <div class="column column-25">
-            <article class="project-card">
-              <div class="card-media">Crates of fresh produce</div>
-              <span class="index-num">04</span>
-              <h3 style="font-size: 1.2rem;">Wholesale Produce Sales</h3>
-              <p>Fresh microgreens and garden produce available for wholesale buyers and local partners. Ask about seasonal availability.</p>
-              <a class="read-more" href="contact.html">Get wholesale pricing →</a>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-banner">
-      <div class="container">
-        <h2>Bring the harvest to your table.</h2>
-        <div class="cta-row">
-          <a class="button button-ghost" href="contact.html">Book a service</a>
-          <a class="button button-ghost" href="projects.html">See it in action</a>
-        </div>
-      </div>
-    </section>
+    <div id="services" dynamic-body></div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="row">
-        <div class="column column-33">
-          <h4>So ILL Veggies</h4>
-          <p>Growing food, knowledge, and community across Southern Illinois.</p>
-        </div>
-        <div class="column column-33">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-        </div>
-        <div class="column column-33">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="https://www.facebook.com/profile.php?id=61557370321794" target="_blank" rel="noopener">Facebook</a></li>
-            <li><a href="contact.html">Instagram (coming soon)</a></li>
-            <li><a href="contact.html">Contact form</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© <span data-year>2026</span> So ILL Veggies. All rights reserved.</span>
-        <span>Built with HTML, CSS &amp; JS — hosted on GitHub Pages.</span>
-      </div>
-    </div>
-  </footer>
+  <footer class="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>

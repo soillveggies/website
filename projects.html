@@ -17,86 +17,17 @@
     <div class="container">
       <div class="row">
         <a class="brand" href="index.html">So ILL Veggies</a>
-        <button class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
+        <button type="button" class="nav-toggle button button-clear" aria-expanded="false" aria-controls="main-nav">Menu ☰</button>
         <nav class="main-nav" id="main-nav" aria-label="Primary"></nav>
       </div>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" style="padding-bottom: var(--space-6);">
-      <div class="container">
-        <span class="eyebrow">Projects</span>
-        <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">What we're growing right now</h1>
-        <p class="lede" style="max-width: 62ch;">Every project below started as a small bed and grew into something the whole community leans on. Pick one to see photos, grant details, and progress.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="row project-grid">
-          <div class="column column-33">
-            <article class="project-card">
-              <div class="card-media">Microgreen trays under grow lights</div>
-              <span class="eyebrow" style="margin-bottom: var(--space-2);">Indoor</span>
-              <h3>Indoor Grow Operation</h3>
-              <p>A microgreens-to-salad-bar pipeline supported by the Sol Systems Grant, with photos and progress updates.</p>
-              <a class="read-more" href="projects/indoor-grow-operation.html">View project details →</a>
-            </article>
-          </div>
-          <div class="column column-33">
-            <article class="project-card">
-              <div class="card-media">Raised garden beds, before and after</div>
-              <span class="eyebrow" style="margin-bottom: var(--space-2);">Outdoor</span>
-              <h3>Outdoor Garden Expansion</h3>
-              <p>A then-and-now comparison of raised beds and a growth story told through photos.</p>
-              <a class="read-more" href="projects/outdoor-garden-expansion.html">View project details →</a>
-            </article>
-          </div>
-          <div class="column column-33">
-            <article class="project-card">
-              <div class="card-media">Hydroponic tower garden</div>
-              <span class="eyebrow" style="margin-bottom: var(--space-2);">Hydroponics</span>
-              <h3>Healing IL Grant</h3>
-              <p>Hydroponic tower overview with community and educational impact.</p>
-              <a class="read-more" href="projects/healing-illinois-grant.html">View project details →</a>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div id="projects" dynamic-body></div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="row">
-        <div class="column column-33">
-          <h4>So ILL Veggies</h4>
-          <p>Growing food, knowledge, and community across Southern Illinois.</p>
-        </div>
-        <div class="column column-33">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-        </div>
-        <div class="column column-33">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="https://www.facebook.com/profile.php?id=61557370321794" target="_blank" rel="noopener">Facebook</a></li>
-            <li><a href="contact.html">Instagram (coming soon)</a></li>
-            <li><a href="contact.html">Contact form</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© <span data-year>2026</span> So ILL Veggies. All rights reserved.</span>
-        <span>Built with HTML, CSS &amp; JS — hosted on GitHub Pages.</span>
-      </div>
-    </div>
-  </footer>
+  <footer class="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>
