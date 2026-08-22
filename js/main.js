@@ -19,7 +19,7 @@ async function initNavMenu(siteData) {
     var nav = document.querySelector(".main-nav");
     if (!toggle || !nav) return;
 
-    let navList = await constructNavMenu(siteData.website_navigation);
+    let navList = await constructNavMenu((siteData && siteData.website_navigation) || []);
     nav.innerHTML = `<ul>${navList.join('\n')}</ul>`;
     // Implement CTA Button?
     // <li><a class="button" href="contact.html" style="text-decoration:none;">Book a service</a></li>
@@ -978,8 +978,9 @@ function buildBodyNews(rows) {
 }
 
 // Render Pages Dynamically
-function initPageData (data) {
+async function initPageData (data) {
 
+    data = data || {}; // guards every data.website_X access below if getData() failed entirely
     let pageBody = document.querySelector("[dynamic-body]");
     if (!pageBody) return; // no dynamic content on this page
     let pageId = pageBody.id;
@@ -988,9 +989,11 @@ function initPageData (data) {
     if (pageId === "gallery") {
         // Gallery renders its grid via live DOM updates + filter click
         // handlers (not a one-shot HTML string), so it fills in the static
-        // shell first, then lets initGallery populate/wire it up.
+        // shell first, then lets initGallery populate/wire it up. Awaited
+        // so window.onload's own await actually waits for the grid to
+        // finish loading before hiding the page loader.
         pageBody.innerHTML = buildBodyGallery();
-        initGallery(data);
+        await initGallery(data);
         return;
     }
     if (pageId === "home") {
@@ -1023,25 +1026,46 @@ function initPageData (data) {
 // Get Data from Google Drive Feed
 async function getData() {
     const url = 'https://script.google.com/macros/s/AKfycbz-iHoxllIXcAyS_4pGWyNu99TCaj-Bi_Daoc6zsmDFTMJfUN4Z-XsBbFRMwAaJhUQ/exec';
-    const data = await fetch(url)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(function () { controller.abort(); }, 10000);
+    const data = await fetch(url, { signal: controller.signal })
         .then(function (res) {
             if (!res.ok) throw new Error("Google Feed Request Failed.");
             return res.json();
         })
         .catch(function (err) {
             console.warn("JSON Feed Mapping Failing, Review Fetch:", err);
+        })
+        .finally(function () {
+            clearTimeout(timeoutId);
         });
-    
+
     return data;
+}
+
+// Loading animation: shown by default in each page's static HTML (so it's
+// visible from first paint, no dependency on JS having run yet), hidden
+// once the data fetch + initial render finish — success or failure, via
+// the try/finally in window.onload below, so a fetch error or timeout
+// can't leave it stuck spinning forever.
+function hidePageLoader() {
+    var loader = document.getElementById("page-loader");
+    if (loader) loader.classList.add("is-hidden");
 }
 
 // Generate Elements on Page Load
 window.onload = async () => {
-    // Get Site Data
-    let siteData = await getData();
-    initNavMenu(siteData);
-    initFooter(siteData);
-    initFooterYear();
-    initPageData(siteData);
-
+    try {
+        // Get Site Data
+        let siteData = await getData();
+        await initNavMenu(siteData);
+        initFooter(siteData);
+        initFooterYear();
+        await initPageData(siteData);
+    } catch (err) {
+        console.warn("Page initialization error:", err);
+    } finally {
+        hidePageLoader();
+    }
 };
+
