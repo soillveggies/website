@@ -64,6 +64,9 @@ code { background: var(--color-surface); color: var(--color-text); border-radius
 blockquote { border-left: 3px solid var(--color-accent); color: var(--color-text-soft); }
 
 .button, button, input[type='submit'], input[type='reset'], input[type='button'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
   border-radius: var(--radius);
