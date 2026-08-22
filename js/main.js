@@ -313,7 +313,7 @@ function buildBodyContact (data, element) {
     });
 
     let bodyTemplate = `
-        <section class="hero" style="padding-bottom: var(--space-6);">
+        <section class="hero hero-home-bg" style="padding-bottom: var(--space-6);">
         <div class="container">
         <span class="eyebrow">Contact</span>
         <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">${contactTitle}</h1>
