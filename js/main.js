@@ -313,7 +313,7 @@ function buildBodyContact (data, element) {
     });
 
     let bodyTemplate = `
-        <section class="hero hero-home-bg" style="padding-bottom: var(--space-6);">
+        <section class="hero" style="padding-bottom: var(--space-6);">
         <div class="container">
         <span class="eyebrow">Contact</span>
         <h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">${contactTitle}</h1>
@@ -438,12 +438,41 @@ function padIndex(n) {
     return n < 10 ? "0" + n : String(n);
 }
 
+// Converts a typical Google Drive "share" link into a directly-viewable
+// image URL. Unlike the gallery sheet (which computes this via a
+// REGEXEXTRACT formula across two columns), website_projects is a
+// row-based sheet — a formula in one row referencing another row's value
+// cell would break if rows ever get reordered/sorted. Doing the
+// conversion here means the sheet field can just hold whatever raw Drive
+// share link gets pasted in.
+function driveUrlToImageUrl(url) {
+    if (!url) return "";
+    if (/^https?:\/\/lh3\.googleusercontent\.com\//i.test(url)) return url; // already direct
+    var match = url.match(/[-\w]{25,}/); // Drive file IDs are long alphanumeric/hyphen/underscore strings
+    if (match) return "https://lh3.googleusercontent.com/d/" + match[0];
+    return url; // not a recognizable Drive link — pass through as-is
+}
+
+// Renders a .card-media box: a real photo (background-image, matching the
+// gallery's existing image/placeholder fallback pattern) when an image URL
+// is present, otherwise the descriptive alt text placeholder as before.
+function cardMediaHtml(imageUrl, altText) {
+    var resolvedUrl = driveUrlToImageUrl(imageUrl);
+    if (resolvedUrl) {
+        return (
+            '<div class="card-media" role="img" aria-label="' + (altText || "") + '" ' +
+            'style="background-image:url(\'' + resolvedUrl + '\'); background-size:cover; background-position:center;"></div>'
+        );
+    }
+    return '<div class="card-media">' + (altText || "") + "</div>";
+}
+
 // Card used on the Home page's "Three ways we put down roots" section.
 function homeProjectCardTemplate(project, position) {
     return (
         '<div class="column column-33">' +
         '<article class="project-card">' +
-        '<div class="card-media">' + (project.listMediaAlt || "") + "</div>" +
+        cardMediaHtml(project.listImageUrl, project.listMediaAlt) +
         '<span class="index-num">' + padIndex(position) + "</span>" +
         "<h3>" + (project.title || "") + "</h3>" +
         "<p>" + (project.listSummary || "") + "</p>" +
@@ -458,7 +487,7 @@ function projectsListCardTemplate(project) {
     return (
         '<div class="column column-33">' +
         '<article class="project-card">' +
-        '<div class="card-media">' + (project.listMediaAlt || "") + "</div>" +
+        cardMediaHtml(project.listImageUrl, project.listMediaAlt) +
         '<span class="eyebrow" style="margin-bottom: var(--space-2);">' + (project.category || "") + "</span>" +
         "<h3>" + (project.title || "") + "</h3>" +
         "<p>" + (project.listSummary || "") + "</p>" +
@@ -467,6 +496,73 @@ function projectsListCardTemplate(project) {
         "</div>"
     );
 }
+
+/* ---- Pipeline step icons (Seed / Sprout / Harvest / Distribute) --------
+   Hand-drawn line icons, not sheet-driven (icon shapes aren't practical to
+   edit from a spreadsheet, unlike the step labels). Each uses viewBox
+   "0 0 64 64" and stroke="currentColor" so color follows the surrounding
+   .pipeline-strip context (currently --color-accent). Stroke widths are
+   graduated, not uniformly multiplied: main shapes (~2-2.1x their original
+   weight) read fine bolder, but small/tight details (grape circles, book
+   page lines, thin connector lines) only got ~1.4-1.8x — a flat 3-4x
+   multiplier closed up the grape circles and merged the book's page lines
+   at this icon's actual ~34px render size. */
+var PIPELINE_ICONS = {
+    "1": '<svg class="pipeline-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+        '<g transform="translate(-53,-22.9)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">' +
+        '<g transform="translate(85,52) scale(0.72) translate(-85,-60)">' +
+        '<g stroke-width="6.5">' +
+        '<g transform="translate(72,46) rotate(-20)"><path d="M0,-6 C4,-6 5,2 0,8 C-5,2 -4,-6 0,-6 Z"/></g>' +
+        '<g transform="translate(97,44) rotate(22)"><path d="M0,-6 C4,-6 5,2 0,8 C-5,2 -4,-6 0,-6 Z"/></g>' +
+        '<g transform="translate(77,63) rotate(-35)"><path d="M0,-6 C4,-6 5,2 0,8 C-5,2 -4,-6 0,-6 Z"/></g>' +
+        '<g transform="translate(101,62) rotate(12)"><path d="M0,-6 C4,-6 5,2 0,8 C-5,2 -4,-6 0,-6 Z"/></g>' +
+        '<g transform="translate(91,78) rotate(55) scale(0.78)"><path d="M0,-6 C4,-6 5,2 0,8 C-5,2 -4,-6 0,-6 Z"/></g>' +
+        "</g>" +
+        '<path d="M58,88 Q85,94 112,88" stroke-width="3.5"/>' +
+        "</g>" +
+        "</g>" +
+        "</svg>",
+    "2": '<svg class="pipeline-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+        '<g transform="translate(-223,-13.65)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">' +
+        '<g transform="translate(255,46) scale(0.7) translate(-255,-46)">' +
+        '<path d="M235,66 L275,66 L268,79 Q255,83 242,79 Z" stroke-width="6.5"/>' +
+        '<line x1="233" y1="66" x2="277" y2="66" stroke-width="6.5"/>' +
+        '<path d="M255,66 C253,54 257,44 255,26" stroke-width="6.5"/>' +
+        '<path d="M255,55 C245,53 238,45 236,36 C248,38 255,46 255,55 Z" stroke-width="5.8"/>' +
+        '<path d="M255,42 C266,39 272,30 274,22 C262,25 255,33 255,42 Z" stroke-width="5.8"/>' +
+        '<path d="M255,26 C250,22 246,15 247,8 C253,11 257,18 255,26 Z" stroke-width="5"/>' +
+        "</g>" +
+        "</g>" +
+        "</svg>",
+    "3": '<svg class="pipeline-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+        '<g transform="translate(-391,-20)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">' +
+        '<circle cx="402" cy="56" r="10" stroke-width="4.6"/>' +
+        '<line x1="402" y1="46" x2="402" y2="40" stroke-width="2.6"/>' +
+        '<g transform="translate(407,40) rotate(-30) scale(0.85)"><path d="M0,-4 C3,-4 4,1 0,6 C-4,1 -3,-4 0,-4 Z" stroke-width="2.6"/></g>' +
+        '<path d="M416,42 Q425,38 434,42 C436,50 431,64 425,75 C419,64 414,50 416,42 Z" stroke-width="4.6"/>' +
+        '<path d="M425,41 L420,31" stroke-width="2.6"/>' +
+        '<path d="M425,41 L425,29" stroke-width="2.6"/>' +
+        '<path d="M425,41 L430,31" stroke-width="2.6"/>' +
+        '<line x1="446" y1="48" x2="444" y2="42" stroke-width="2.2"/>' +
+        '<circle cx="442" cy="52" r="4" stroke-width="2.6"/>' +
+        '<circle cx="450" cy="52" r="4" stroke-width="2.6"/>' +
+        '<circle cx="446" cy="58" r="5" stroke-width="2.6"/>' +
+        '<circle cx="442" cy="64" r="4" stroke-width="2.6"/>' +
+        '<circle cx="450" cy="64" r="4" stroke-width="2.6"/>' +
+        "</g>" +
+        "</svg>",
+    "4": '<svg class="pipeline-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+        '<g transform="translate(-564,-24)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="566" y="56" width="32" height="18" rx="1" stroke-width="4.6"/>' +
+        '<path d="M566,56 L572,46 L592,46 L598,56" stroke-width="4.2"/>' +
+        '<rect x="600" y="38" width="26" height="34" rx="1" stroke-width="4.6"/>' +
+        '<line x1="606" y1="38" x2="606" y2="72" stroke-width="2.2"/>' +
+        '<line x1="611" y1="48" x2="620" y2="48" stroke-width="2.2"/>' +
+        '<line x1="611" y1="56" x2="620" y2="56" stroke-width="2.2"/>' +
+        '<line x1="611" y1="64" x2="620" y2="64" stroke-width="2.2"/>' +
+        "</g>" +
+        "</svg>"
+};
 
 /* ---- Build: Home --------------------------------------------------- */
 function buildBodyHome(homeRows, projectRows) {
@@ -480,9 +576,13 @@ function buildBodyHome(homeRows, projectRows) {
     var ctaSecondaryLabel = getValue(homeRows, "hero", "ctaSecondaryLabel");
     var ctaSecondaryLink = getLink(homeRows, "hero", "ctaSecondaryLabel");
 
-    var pipelineItems = getIndices(homeRows, "pipeline").map(function (idx) {
+    var pipelineIndices = getIndices(homeRows, "pipeline");
+    var pipelineItems = pipelineIndices.map(function (idx, i) {
         var label = getValue(homeRows, "pipeline", "label", idx);
-        return "<li><span class=\"index-num\">" + padIndex(Number(idx)) + "</span><span class=\"label\">" + label + "</span></li>";
+        var icon = PIPELINE_ICONS[String(idx)] || "";
+        var isLast = i === pipelineIndices.length - 1;
+        var arrow = isLast ? "" : '<span class="pipeline-arrow" aria-hidden="true"></span>';
+        return "<li><span class=\"pipeline-head\">" + icon + arrow + "</span><span class=\"label\">" + label + "</span></li>";
     }).join("\n");
 
     var projectsEyebrow = getValue(homeRows, "projectsIntro", "eyebrow");
@@ -511,7 +611,7 @@ function buildBodyHome(homeRows, projectRows) {
     }).join("\n");
 
     return (
-        '<section class="hero">' +
+        '<section class="hero hero-home-bg">' +
         '<div class="container">' +
         '<span class="eyebrow">' + eyebrow + "</span>" +
         "<h1>" + heading1 + "<br>" + heading2 + '<br><span style="color: var(--color-accent);">' + heading3 + "</span></h1>" +
@@ -945,4 +1045,3 @@ window.onload = async () => {
     initPageData(siteData);
 
 };
-

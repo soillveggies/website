@@ -32,6 +32,15 @@
   --radius: 0;
 }
 
+/* ---- Container Rules---------------------------------------------------------------*/
+.container {
+  padding: 30px;
+}
+
+.site-header .container {
+  padding: 0px;
+}
+
 /* ---- Base / Milligram overrides -------------------------------------- */
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -192,14 +201,46 @@ table th, table td { border-bottom-color: var(--color-divider); }
 .hero .lede { font-size: 1.1rem; line-height: 1.7; max-width: 56ch; color: var(--color-text); margin-top: var(--space-8); }
 .hero .cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
 
-/* Numbered pipeline strip: Seed / Sprout / Harvest / Distribute */
+/* Home page hero: local background photo (assets/hero-home-bg.webp) with a
+   dark scrim so the (originally dark-on-light) hero text stays readable
+   regardless of what part of the photo `cover` lands behind it. Scrim color
+   reuses --color-text's rgb value rather than pure black, to stay on-palette. */
+.hero-home-bg {
+  background-image: linear-gradient(rgba(32, 30, 29, 0.6), rgba(32, 30, 29, 0.6)), url('../assets/hero-home-bg.webp');
+  background-size: cover;
+  background-position: center;
+  color: var(--color-bg);
+}
+/* Second, stronger scrim on the content container itself: opaque on the
+   left where the (left-aligned) text sits, fading to fully transparent on
+   the right so more of the photo stays visible away from the copy. */
+.hero-home-bg .container {
+  background: linear-gradient(to right, rgba(32, 30, 29, 0.65), transparent);
+}
+.hero-home-bg .eyebrow { color: var(--color-accent-100); }
+.hero-home-bg h1 { color: var(--color-bg); }
+.hero-home-bg .lede { color: var(--color-bg); }
+.hero-home-bg .pipeline-strip { border-top-color: color-mix(in srgb, var(--color-bg) 30%, transparent); }
+.hero-home-bg .pipeline-strip .label { color: color-mix(in srgb, var(--color-bg) 75%, transparent); }
+.hero-home-bg .button-ghost { color: var(--color-bg); border: 1px solid var(--color-bg); }
+.hero-home-bg .button-ghost:hover { background: var(--color-bg); color: var(--color-accent-dark); }
+
+/* Icon-led pipeline strip: Seed / Sprout / Harvest / Distribute
+   (previously numbered; numbers were dropped in favor of icons alone) */
 .pipeline-strip {
   list-style: none; margin: 0; padding: var(--space-6) 0;
   display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--space-6); border-top: 2px solid var(--color-divider);
 }
 .pipeline-strip li { display: flex; flex-direction: column; }
-.pipeline-strip .index-num { margin-bottom: var(--space-3); }
+.pipeline-head { display: flex; align-items: center; gap: var(--space-6); margin-bottom: var(--space-3); }
+.pipeline-icon { width: 34px; height: 34px; color: var(--color-accent); display: block; flex-shrink: 0; }
+.pipeline-arrow { flex: 1 1 auto; min-width: 24px; height: 2px; background: var(--color-accent); position: relative; }
+.pipeline-arrow::after {
+  content: ""; position: absolute; right: 0; top: 50%; width: 8px; height: 8px;
+  border-top: 2px solid var(--color-accent); border-right: 2px solid var(--color-accent);
+  transform: translateY(-50%) rotate(45deg);
+}
 .pipeline-strip .label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-soft); }
 
 /* ---- Project / service cards ------------------------------------------*/
