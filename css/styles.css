@@ -37,8 +37,37 @@
   padding: 30px;
 }
 
-.site-header .container {
-  padding: 0px;
+/* Header container: no horizontal padding on desktop (edge-to-edge look),
+   falling back to the standard 30px on mobile/tablet — scoped to the same
+   900px breakpoint the nav toggle already uses, so the header's look
+   changes at the same point the hamburger menu appears. */
+@media (min-width: 901px) {
+  .site-header .container {
+    padding: 0px;
+  }
+}
+
+/* ---- Grid: fix Milligram's column-N percentage widths on mobile --------
+   Milligram's own .column-25/.column-33/.column-50 (etc.) rules set
+   flex-basis/max-width as a fixed percentage with NO responsive media
+   query at all — only .row's flex-direction (column vs row) is
+   responsive, at its own `@media (min-width: 40rem)` breakpoint. Below
+   that breakpoint .row correctly stacks children vertically, but each
+   .column-N child still gets capped at its percentage max-width, so
+   cards render as a narrow, left-aligned box instead of a full-width
+   stacked block — most visible wherever a card has an image with a hard
+   edge to reveal it (project cards, gallery, sponsor logos), but it
+   affects every section using these classes. Reset to full width below
+   the same 640px breakpoint Milligram itself uses for the row switch. */
+@media (max-width: 39.9375rem) {
+  .row .column.column-25,
+  .row .column.column-33,
+  .row .column.column-34,
+  .row .column.column-50 {
+    flex: 1 1 auto;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 /* ---- Base / Milligram overrides -------------------------------------- */
