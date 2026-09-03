@@ -46,6 +46,15 @@
     padding: 0px;
   }
 }
+/* On mobile, keep the 30px horizontal breathing room but drop vertical
+   padding to 0 — .site-header already has its own vertical padding
+   (var(--space-3)), so the base .container's 30px top/bottom was doubling
+   up on top of that. */
+@media (max-width: 900px) {
+  .site-header .container {
+    padding: 0 30px;
+  }
+}
 
 /* ---- Grid: fix Milligram's column-N percentage widths on mobile --------
    Milligram's own .column-25/.column-33/.column-50 (etc.) rules set
