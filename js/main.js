@@ -791,10 +791,12 @@ function buildBodyProjectDetail(rows, slug) {
             "</div>" +
             "</section>"
         );
-    } else if (project.video) {
+    }
+    if (project.video) {
         var v = project.video;
-        extraSection = (
-            '<section class="alt-bg">' +
+        // Shaded background only when it isn't stacked under the then/now section.
+        extraSection += (
+            '<section' + (project.thennow ? "" : ' class="alt-bg"') + '>' +
             '<div class="container">' +
             '<span class="eyebrow">' + (project.videoEyebrow || "") + "</span>" +
             "<h2>" + (project.videoHeading || "") + "</h2>" +

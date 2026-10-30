@@ -308,6 +308,8 @@ table th, table td { border-bottom-color: var(--color-divider); }
 
 /* ---- Project / service cards ------------------------------------------*/
 .project-grid { border-top: 2px solid var(--color-divider); margin-top: var(--space-10); }
+/* Milligram's .row doesn't wrap, so more than three cards ran off-screen. */
+@media (min-width: 40rem) { .project-grid { flex-wrap: wrap; } }
 .project-card { padding: var(--space-6) 0 var(--space-8); }
 .card-media {
   aspect-ratio: 4 / 3;
