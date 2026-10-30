@@ -261,6 +261,7 @@ table th, table td { border-bottom-color: var(--color-divider); }
 /* ---- Hero ---------------------------------------------------------------*/
 .hero { padding: var(--space-12) 0 var(--space-10); }
 .hero .lede { font-size: 1.1rem; line-height: 1.7; max-width: 56ch; color: var(--color-text); margin-top: var(--space-8); }
+.hero-photo { display: block; width: 100%; height: auto; margin-top: var(--space-8); }
 .hero .cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
 
 /* Home page hero: local background photo (assets/hero-home-bg.webp) with a

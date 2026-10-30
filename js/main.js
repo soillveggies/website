@@ -390,7 +390,7 @@ function normalizeLink(link) {
    type=meta   -> field/value become a property directly on the project
                   (title, order, category, listSummary, listMediaAlt,
                   heroEyebrow, heroDescription, thennowEyebrow, thennowHeading,
-                  videoEyebrow, videoHeading, etc.)
+                  videoEyebrow, videoHeading, videoDescription, etc.)
    type=card   -> index 1..3, field=title/description/mediaAlt
    type=thennow-> index 1=then, 2=now, field=mediaAlt/caption
    type=video  -> field=embedUrl/link
@@ -798,6 +798,7 @@ function buildBodyProjectDetail(rows, slug) {
             '<div class="container">' +
             '<span class="eyebrow">' + (project.videoEyebrow || "") + "</span>" +
             "<h2>" + (project.videoHeading || "") + "</h2>" +
+            (project.videoDescription ? '<h3 class="video-description" style="margin-top: var(--space-3);">' + project.videoDescription + "</h3>" : "") +
             '<div class="video-embed" style="margin-top: var(--space-6);">' +
             '<iframe src="' + (v.embedUrl || "") + '" title="' + (project.title || "") + ' video feature" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>' +
             "</div>" +
@@ -843,6 +844,11 @@ function buildBodyAboutUs(rows) {
     var heroEyebrow = getValue(rows, "hero", "eyebrow");
     var heroHeading = getValue(rows, "hero", "heading");
     var heroLede = getValue(rows, "hero", "lede");
+    var heroImage = driveUrlToImageUrl(getValue(rows, "hero", "image"));
+    var heroImageAlt = getValue(rows, "hero", "imageAlt");
+    var heroPhoto = heroImage
+        ? '<img class="hero-photo" src="' + heroImage + '" alt="' + heroImageAlt + '" loading="lazy">'
+        : "";
 
     var teamEyebrow = getValue(rows, "teamIntro", "eyebrow");
     var teamHeading = getValue(rows, "teamIntro", "heading");
@@ -874,6 +880,7 @@ function buildBodyAboutUs(rows) {
         '<span class="eyebrow">' + heroEyebrow + "</span>" +
         '<h1 style="font-size: clamp(2.2rem, 4.4vw, 3.4rem);">' + heroHeading + "</h1>" +
         '<p class="lede" style="max-width: 62ch;">' + heroLede + "</p>" +
+        heroPhoto +
         "</div>" +
         "</section>" +
 
@@ -1068,4 +1075,3 @@ window.onload = async () => {
         hidePageLoader();
     }
 };
-
